@@ -200,6 +200,10 @@ export default async function AdminPage({
           <label>
             Contenuto completo
             <textarea name="content" rows={12} defaultValue={editing?.content} />
+            <div className="admin-list-meta" style={{ marginTop: 6 }}>
+              Per un link nel testo scrivi <code>[testo](https://indirizzo.com)</code> — es.{" "}
+              <code>[il sito di Stonfo](https://stonfo.com)</code>.
+            </div>
           </label>
           <div style={{ display: "flex", gap: 12 }}>
             <button type="submit" className="hp-btn-solid" disabled={!dbConnected}>

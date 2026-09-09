@@ -13,6 +13,31 @@ function toEmbedUrl(url: string): string | null {
   return null;
 }
 
+function renderTextWithLinks(text: string, keyPrefix: string) {
+  const linkRegex = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g;
+  const out: (string | JSX.Element)[] = [];
+  let lastIndex = 0;
+  let m: RegExpExecArray | null;
+  let idx = 0;
+  while ((m = linkRegex.exec(text))) {
+    if (m.index > lastIndex) out.push(text.slice(lastIndex, m.index));
+    out.push(
+      <a
+        key={`${keyPrefix}-${idx++}`}
+        href={m[2]}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ color: "var(--water)", textDecoration: "underline" }}
+      >
+        {m[1]}
+      </a>
+    );
+    lastIndex = m.index + m[0].length;
+  }
+  if (lastIndex < text.length) out.push(text.slice(lastIndex));
+  return out;
+}
+
 function renderContent(content: string, extraImages: string[] = [], videos: string[] = []) {
   const parts = content.split(/(\[\[img\d+\]\]|\[\[video\d+\]\])/g);
   return parts.map((part, i) => {
@@ -59,7 +84,7 @@ function renderContent(content: string, extraImages: string[] = [], videos: stri
     if (!part) return null;
     return (
       <span key={i} style={{ whiteSpace: "pre-wrap" }}>
-        {part}
+        {renderTextWithLinks(part, `t${i}`)}
       </span>
     );
   });
