@@ -31,10 +31,12 @@ export async function ensureSchema() {
       category TEXT NOT NULL,
       excerpt TEXT NOT NULL DEFAULT '',
       content TEXT NOT NULL DEFAULT '',
+      image_url TEXT,
       published_at DATE NOT NULL DEFAULT CURRENT_DATE,
       created_at TIMESTAMPTZ NOT NULL DEFAULT now()
     );
   `);
+  await p.query(`ALTER TABLE site_articles ADD COLUMN IF NOT EXISTS image_url TEXT;`);
   schemaReady = true;
 }
 

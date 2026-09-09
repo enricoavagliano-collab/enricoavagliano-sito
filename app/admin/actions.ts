@@ -53,7 +53,22 @@ export async function createArticleAction(formData: FormData) {
 
   const slug = slugify(customSlug || title);
 
-  await createArticle({ slug, title, category, excerpt, content, date });
+  let imageUrl: string | null = null;
+  const imageFile = formData.get("image");
+  if (imageFile instanceof File && imageFile.size > 0) {
+    if (imageFile.size > 4 * 1024 * 1024) {
+      redirect("/admin?error=immagine-troppo-grande");
+    }
+    const buffer = Buffer.from(await imageFile.arrayBuffer());
+    const mime = imageFile.type || "image/jpeg";
+    imageUrl = `data:${mime};base64,${buffer.toString("base64")}`;
+  }
+  const existingImageUrl = String(formData.get("existingImageUrl") || "").trim();
+  if (!imageUrl && existingImageUrl) {
+    imageUrl = existingImageUrl;
+  }
+
+  await createArticle({ slug, title, category, excerpt, content, date, imageUrl });
 
   redirect("/admin?ok=1");
 }

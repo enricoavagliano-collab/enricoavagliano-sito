@@ -70,7 +70,7 @@ export default async function AdminPage({
 
       <section className="admin-card">
         <h2>Nuovo articolo</h2>
-        <form action={createArticleAction} className="admin-form">
+        <form action={createArticleAction} className="admin-form" encType="multipart/form-data">
           <label>
             Titolo
             <input type="text" name="title" required />
@@ -96,6 +96,10 @@ export default async function AdminPage({
             </label>
           </div>
           <label>
+            Immagine di copertina (facoltativa, max 4MB)
+            <input type="file" name="image" accept="image/*" />
+          </label>
+          <label>
             Estratto (anteprima nella lista blog)
             <textarea name="excerpt" rows={2} required />
           </label>
@@ -114,10 +118,19 @@ export default async function AdminPage({
         <div className="admin-list">
           {items.map((a) => (
             <div className="admin-list-row" key={a.slug}>
-              <div>
-                <strong>{a.title}</strong>
-                <div className="admin-list-meta">
-                  {a.category} — {a.date} — /blog/{a.slug}
+              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                {a.imageUrl && (
+                  <img
+                    src={a.imageUrl}
+                    alt=""
+                    style={{ width: 44, height: 44, objectFit: "cover", borderRadius: 4, flexShrink: 0 }}
+                  />
+                )}
+                <div>
+                  <strong>{a.title}</strong>
+                  <div className="admin-list-meta">
+                    {a.category} — {a.date} — /blog/{a.slug}
+                  </div>
                 </div>
               </div>
               <form action={deleteArticleAction}>

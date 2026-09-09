@@ -8,6 +8,7 @@ export type Article = {
   date: string; // ISO yyyy-mm-dd
   excerpt: string;
   content?: string;
+  imageUrl?: string | null;
 };
 
 export async function getArticles(): Promise<{ items: Article[]; dbConnected: boolean }> {
@@ -17,7 +18,7 @@ export async function getArticles(): Promise<{ items: Article[]; dbConnected: bo
   try {
     await ensureSchema();
     const res = await pool.query(
-      `SELECT slug, title, category, excerpt, content, published_at
+      `SELECT slug, title, category, excerpt, content, image_url, published_at
        FROM site_articles ORDER BY published_at DESC, id DESC`
     );
     const items: Article[] = res.rows.map((r) => ({
@@ -26,6 +27,7 @@ export async function getArticles(): Promise<{ items: Article[]; dbConnected: bo
       category: r.category,
       excerpt: r.excerpt,
       content: r.content,
+      imageUrl: r.image_url,
       date: new Date(r.published_at).toISOString().slice(0, 10),
     }));
     return { items, dbConnected: true };
@@ -47,16 +49,17 @@ export async function createArticle(data: {
   excerpt: string;
   content: string;
   date: string;
+  imageUrl?: string | null;
 }) {
   const pool = getPool();
   if (!pool) throw new Error("DATABASE_URL non configurato");
   await ensureSchema();
   await pool.query(
-    `INSERT INTO site_articles (slug, title, category, excerpt, content, published_at)
-     VALUES ($1,$2,$3,$4,$5,$6)
+    `INSERT INTO site_articles (slug, title, category, excerpt, content, image_url, published_at)
+     VALUES ($1,$2,$3,$4,$5,$6,$7)
      ON CONFLICT (slug) DO UPDATE SET
-       title = $2, category = $3, excerpt = $4, content = $5, published_at = $6`,
-    [data.slug, data.title, data.category, data.excerpt, data.content, data.date]
+       title = $2, category = $3, excerpt = $4, content = $5, image_url = $6, published_at = $7`,
+    [data.slug, data.title, data.category, data.excerpt, data.content, data.imageUrl ?? null, data.date]
   );
 }
 

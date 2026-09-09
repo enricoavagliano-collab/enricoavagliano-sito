@@ -25,6 +25,13 @@ export default async function ArticlePage({
         </span>
       </div>
       <h1 style={{ fontSize: "2.2rem", marginTop: 16 }}>{article.title}</h1>
+      {article.imageUrl && (
+        <img
+          src={article.imageUrl}
+          alt={article.title}
+          style={{ width: "100%", maxHeight: 420, objectFit: "cover", borderRadius: 6, marginTop: 24 }}
+        />
+      )}
       <p style={{ fontSize: "1.1rem", lineHeight: 1.7, marginTop: 28 }}>
         {article.excerpt}
       </p>
