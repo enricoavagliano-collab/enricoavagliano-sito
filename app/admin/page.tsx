@@ -50,6 +50,10 @@ export default async function AdminPage({
   const editing = searchParams.edit
     ? items.find((a) => a.slug === searchParams.edit)
     : undefined;
+  const baseCategories = ["Tecniche", "Lenze", "Specie", "Attrezzatura", "Spot"];
+  const categories = Array.from(
+    new Set([...baseCategories, ...items.map((a) => a.category)])
+  ).sort();
 
   return (
     <main className="admin-shell">
@@ -95,13 +99,19 @@ export default async function AdminPage({
           <div className="admin-form-row">
             <label>
               Categoria
-              <select name="category" defaultValue={editing?.category || "Tecniche"}>
-                <option>Tecniche</option>
-                <option>Lenze</option>
-                <option>Specie</option>
-                <option>Attrezzatura</option>
-                <option>Spot</option>
-              </select>
+              <input
+                type="text"
+                name="category"
+                list="category-list"
+                defaultValue={editing?.category || ""}
+                placeholder="es. Tecniche"
+                required
+              />
+              <datalist id="category-list">
+                {categories.map((c) => (
+                  <option key={c} value={c} />
+                ))}
+              </datalist>
             </label>
             <label>
               Data
