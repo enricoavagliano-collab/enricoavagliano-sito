@@ -13,7 +13,7 @@ export const metadata = { title: "Area riservata — Enrico Avagliano" };
 export default async function AdminPage({
   searchParams,
 }: {
-  searchParams: { error?: string; ok?: string };
+  searchParams: { error?: string; ok?: string; edit?: string };
 }) {
   const authed = isAuthenticated();
 
@@ -47,6 +47,9 @@ export default async function AdminPage({
 
   const { items, dbConnected } = await getArticles();
   const today = new Date().toISOString().slice(0, 10);
+  const editing = searchParams.edit
+    ? items.find((a) => a.slug === searchParams.edit)
+    : undefined;
 
   return (
     <main className="admin-shell">
@@ -69,20 +72,30 @@ export default async function AdminPage({
       {searchParams.ok && <div className="admin-ok">Salvato con successo.</div>}
 
       <section className="admin-card">
-        <h2>Nuovo articolo</h2>
-        <form action={createArticleAction} className="admin-form" encType="multipart/form-data">
+        <h2>{editing ? `Modifica: ${editing.title}` : "Nuovo articolo"}</h2>
+        <form
+          action={createArticleAction}
+          className="admin-form"
+          encType="multipart/form-data"
+          key={editing?.slug || "new"}
+        >
           <label>
             Titolo
-            <input type="text" name="title" required />
+            <input type="text" name="title" required defaultValue={editing?.title} />
           </label>
           <label>
-            Slug (opzionale — generato dal titolo se lo lasci vuoto)
-            <input type="text" name="slug" placeholder="es. nodi-essenziali" />
+            Slug {editing ? "(lascialo com'è per aggiornare lo stesso articolo)" : "(opzionale — generato dal titolo se lo lasci vuoto)"}
+            <input
+              type="text"
+              name="slug"
+              placeholder="es. nodi-essenziali"
+              defaultValue={editing?.slug}
+            />
           </label>
           <div className="admin-form-row">
             <label>
               Categoria
-              <select name="category" defaultValue="Tecniche">
+              <select name="category" defaultValue={editing?.category || "Tecniche"}>
                 <option>Tecniche</option>
                 <option>Lenze</option>
                 <option>Specie</option>
@@ -92,24 +105,44 @@ export default async function AdminPage({
             </label>
             <label>
               Data
-              <input type="date" name="date" defaultValue={today} />
+              <input type="date" name="date" defaultValue={editing?.date || today} />
             </label>
           </div>
           <label>
             Immagine di copertina (facoltativa, max 4MB)
+            {editing?.imageUrl && (
+              <div style={{ margin: "8px 0" }}>
+                <img
+                  src={editing.imageUrl}
+                  alt=""
+                  style={{ width: 80, height: 80, objectFit: "cover", borderRadius: 4 }}
+                />
+                <div className="admin-list-meta">
+                  Immagine attuale — carica un file solo se vuoi sostituirla.
+                </div>
+              </div>
+            )}
             <input type="file" name="image" accept="image/*" />
+            <input type="hidden" name="existingImageUrl" value={editing?.imageUrl ?? ""} />
           </label>
           <label>
             Estratto (anteprima nella lista blog)
-            <textarea name="excerpt" rows={2} required />
+            <textarea name="excerpt" rows={2} required defaultValue={editing?.excerpt} />
           </label>
           <label>
             Contenuto completo
-            <textarea name="content" rows={12} />
+            <textarea name="content" rows={12} defaultValue={editing?.content} />
           </label>
-          <button type="submit" className="hp-btn-solid" disabled={!dbConnected}>
-            Pubblica
-          </button>
+          <div style={{ display: "flex", gap: 12 }}>
+            <button type="submit" className="hp-btn-solid" disabled={!dbConnected}>
+              {editing ? "Salva modifiche" : "Pubblica"}
+            </button>
+            {editing && (
+              <a href="/admin" className="admin-link-btn">
+                Annulla modifica
+              </a>
+            )}
+          </div>
         </form>
       </section>
 
@@ -133,16 +166,21 @@ export default async function AdminPage({
                   </div>
                 </div>
               </div>
-              <form action={deleteArticleAction}>
-                <input type="hidden" name="slug" value={a.slug} />
-                <button
-                  type="submit"
-                  className="admin-link-btn danger"
-                  disabled={!dbConnected}
-                >
-                  Elimina
-                </button>
-              </form>
+              <div style={{ display: "flex", gap: 8 }}>
+                <a href={`/admin?edit=${a.slug}`} className="admin-link-btn">
+                  Modifica
+                </a>
+                <form action={deleteArticleAction}>
+                  <input type="hidden" name="slug" value={a.slug} />
+                  <button
+                    type="submit"
+                    className="admin-link-btn danger"
+                    disabled={!dbConnected}
+                  >
+                    Elimina
+                  </button>
+                </form>
+              </div>
             </div>
           ))}
           {items.length === 0 && <p>Nessun articolo pubblicato.</p>}
