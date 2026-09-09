@@ -47,11 +47,6 @@ export default async function BlogIndex({
       <div className="logbook">
         {list.map((a) => (
           <Link href={`/blog/${a.slug}`} key={a.slug} className="log-entry">
-            {a.imageUrl ? (
-              <img src={a.imageUrl} alt="" className="thumb" />
-            ) : (
-              <span className="thumb" aria-hidden="true" />
-            )}
             <span className="date">{formatItDate(a.date)}</span>
             <span className="title">{a.title}</span>
             <span className="cat">{a.category}</span>
