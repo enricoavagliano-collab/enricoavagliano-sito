@@ -5,12 +5,20 @@ import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
-function renderContent(content: string, extraImages: string[] = []) {
-  const parts = content.split(/(\[\[img\d+\]\])/g);
+function toEmbedUrl(url: string): string | null {
+  const yt = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/|embed\/))([\w-]{6,})/);
+  if (yt) return `https://www.youtube.com/embed/${yt[1]}`;
+  const vimeo = url.match(/vimeo\.com\/(\d+)/);
+  if (vimeo) return `https://player.vimeo.com/video/${vimeo[1]}`;
+  return null;
+}
+
+function renderContent(content: string, extraImages: string[] = [], videos: string[] = []) {
+  const parts = content.split(/(\[\[img\d+\]\]|\[\[video\d+\]\])/g);
   return parts.map((part, i) => {
-    const m = part.match(/^\[\[img(\d+)\]\]$/);
-    if (m) {
-      const idx = parseInt(m[1], 10) - 1;
+    const mImg = part.match(/^\[\[img(\d+)\]\]$/);
+    if (mImg) {
+      const idx = parseInt(mImg[1], 10) - 1;
       const src = extraImages[idx];
       if (!src) return null;
       return (
@@ -26,6 +34,26 @@ function renderContent(content: string, extraImages: string[] = []) {
             margin: "20px 0",
           }}
         />
+      );
+    }
+    const mVideo = part.match(/^\[\[video(\d+)\]\]$/);
+    if (mVideo) {
+      const idx = parseInt(mVideo[1], 10) - 1;
+      const raw = videos[idx];
+      const embed = raw ? toEmbedUrl(raw) : null;
+      if (!embed) return null;
+      return (
+        <div
+          key={i}
+          style={{ position: "relative", paddingTop: "56.25%", margin: "20px 0", borderRadius: 6, overflow: "hidden" }}
+        >
+          <iframe
+            src={embed}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: 0 }}
+          />
+        </div>
       );
     }
     if (!part) return null;
@@ -69,7 +97,7 @@ export default async function ArticlePage({
       </p>
       {article.content && (
         <div style={{ marginTop: 24, lineHeight: 1.75 }}>
-          {renderContent(article.content, article.extraImages || [])}
+          {renderContent(article.content, article.extraImages || [], article.videos || [])}
         </div>
       )}
     </main>

@@ -94,7 +94,13 @@ export async function createArticleAction(formData: FormData) {
     }
   }
 
-  await createArticle({ slug, title, category, excerpt, content, date, imageUrl, extraImages });
+  const videosRaw = String(formData.get("videos") || "");
+  const videos = videosRaw
+    .split(/\r?\n/)
+    .map((v) => v.trim())
+    .filter(Boolean);
+
+  await createArticle({ slug, title, category, excerpt, content, date, imageUrl, extraImages, videos });
 
   redirect("/admin?ok=1");
 }

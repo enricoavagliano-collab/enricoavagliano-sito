@@ -180,6 +180,20 @@ export default async function AdminPage({
             </div>
           </label>
           <label>
+            Video da inserire nel testo (link YouTube o Vimeo, uno per riga, facoltativi)
+            <textarea
+              name="videos"
+              rows={3}
+              placeholder={"https://youtube.com/watch?v=...\nhttps://youtube.com/watch?v=..."}
+              defaultValue={editing?.videos ? editing.videos.join("\n") : ""}
+            />
+            <div className="admin-list-meta" style={{ marginTop: 6 }}>
+              Incolla un link per riga. Poi nel testo scrivi <code>[[video1]]</code>,{" "}
+              <code>[[video2]]</code> ecc. nel punto dove vuoi che appaia, seguendo lo
+              stesso ordine dei link qui sopra.
+            </div>
+          </label>
+          <label>
             Estratto (anteprima nella lista blog)
             <textarea name="excerpt" rows={2} required defaultValue={editing?.excerpt} />
           </label>
