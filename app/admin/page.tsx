@@ -126,6 +126,34 @@ export default async function AdminPage({
             <input type="hidden" name="existingImageUrl" value={editing?.imageUrl ?? ""} />
           </label>
           <label>
+            Foto extra da inserire dentro al testo (facoltative, puoi selezionarne più di una insieme)
+            {editing?.extraImages && editing.extraImages.length > 0 && (
+              <div style={{ display: "flex", gap: 8, margin: "8px 0", flexWrap: "wrap" }}>
+                {editing.extraImages.map((src, i) => (
+                  <div key={i} style={{ textAlign: "center" }}>
+                    <img
+                      src={src}
+                      alt=""
+                      style={{ width: 60, height: 60, objectFit: "cover", borderRadius: 4 }}
+                    />
+                    <div className="admin-list-meta">[[img{i + 1}]]</div>
+                  </div>
+                ))}
+              </div>
+            )}
+            <input type="file" name="extraImages" accept="image/*" multiple />
+            <input
+              type="hidden"
+              name="existingExtraImages"
+              value={editing?.extraImages ? JSON.stringify(editing.extraImages) : ""}
+            />
+            <div className="admin-list-meta" style={{ marginTop: 6 }}>
+              Carica le foto nell'ordine in cui vuoi usarle, poi nel testo qui sotto scrivi{" "}
+              <code>[[img1]]</code>, <code>[[img2]]</code> ecc. nel punto esatto dove vuoi
+              che appaiano. Se ricarichi foto nuove qui, sostituiscono tutte quelle vecchie.
+            </div>
+          </label>
+          <label>
             Estratto (anteprima nella lista blog)
             <textarea name="excerpt" rows={2} required defaultValue={editing?.excerpt} />
           </label>

@@ -5,6 +5,38 @@ import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
+function renderContent(content: string, extraImages: string[] = []) {
+  const parts = content.split(/(\[\[img\d+\]\])/g);
+  return parts.map((part, i) => {
+    const m = part.match(/^\[\[img(\d+)\]\]$/);
+    if (m) {
+      const idx = parseInt(m[1], 10) - 1;
+      const src = extraImages[idx];
+      if (!src) return null;
+      return (
+        <img
+          key={i}
+          src={src}
+          alt=""
+          style={{
+            width: "100%",
+            maxHeight: 420,
+            objectFit: "cover",
+            borderRadius: 6,
+            margin: "20px 0",
+          }}
+        />
+      );
+    }
+    if (!part) return null;
+    return (
+      <span key={i} style={{ whiteSpace: "pre-wrap" }}>
+        {part}
+      </span>
+    );
+  });
+}
+
 export default async function ArticlePage({
   params,
 }: {
@@ -36,8 +68,8 @@ export default async function ArticlePage({
         {article.excerpt}
       </p>
       {article.content && (
-        <div style={{ marginTop: 24, lineHeight: 1.75, whiteSpace: "pre-wrap" }}>
-          {article.content}
+        <div style={{ marginTop: 24, lineHeight: 1.75 }}>
+          {renderContent(article.content, article.extraImages || [])}
         </div>
       )}
     </main>
