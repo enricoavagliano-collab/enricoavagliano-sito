@@ -50,7 +50,23 @@ export default async function AdminPage({
   const editing = searchParams.edit
     ? items.find((a) => a.slug === searchParams.edit)
     : undefined;
-  const baseCategories = ["Tecniche", "Lenze", "Specie", "Attrezzatura", "Spot"];
+  const baseCategories = [
+    "Regolamenti",
+    "Cronaca",
+    "Curiosità",
+    "Feeder",
+    "Foce",
+    "Tutorial",
+    "Mosca",
+    "Passata",
+    "Inglese",
+    "Carpfishing",
+    "Racconti",
+    "Accessori",
+    "Mare",
+    "Itinerario",
+    "Bolognese",
+  ];
   const categories = Array.from(
     new Set([...baseCategories, ...items.map((a) => a.category)])
   ).sort();
@@ -104,7 +120,7 @@ export default async function AdminPage({
                 name="category"
                 list="category-list"
                 defaultValue={editing?.category || ""}
-                placeholder="es. Tecniche"
+                placeholder="es. Foce"
                 required
               />
               <datalist id="category-list">
