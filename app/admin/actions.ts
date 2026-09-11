@@ -68,7 +68,39 @@ export async function createArticleAction(formData: FormData) {
     imageUrl = existingImageUrl;
   }
 
-  await createArticle({ slug, title, category, excerpt, content, date, imageUrl });
+  let extraImages: string[] = [];
+  const extraFiles = formData.getAll("extraImages") as unknown as File[];
+  const newExtraImages: string[] = [];
+  for (const f of extraFiles) {
+    if (f instanceof File && f.size > 0) {
+      if (f.size > 4 * 1024 * 1024) {
+        redirect("/admin?error=immagine-troppo-grande");
+      }
+      const buffer = Buffer.from(await f.arrayBuffer());
+      const mime = f.type || "image/jpeg";
+      newExtraImages.push(`data:${mime};base64,${buffer.toString("base64")}`);
+    }
+  }
+  if (newExtraImages.length > 0) {
+    extraImages = newExtraImages;
+  } else {
+    const existingExtraImagesRaw = String(formData.get("existingExtraImages") || "");
+    if (existingExtraImagesRaw) {
+      try {
+        extraImages = JSON.parse(existingExtraImagesRaw);
+      } catch {
+        extraImages = [];
+      }
+    }
+  }
+
+  const videosRaw = String(formData.get("videos") || "");
+  const videos = videosRaw
+    .split(/\r?\n/)
+    .map((v) => v.trim())
+    .filter(Boolean);
+
+  await createArticle({ slug, title, category, excerpt, content, date, imageUrl, extraImages, videos });
 
   redirect("/admin?ok=1");
 }

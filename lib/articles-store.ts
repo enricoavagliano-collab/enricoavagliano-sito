@@ -9,6 +9,8 @@ export type Article = {
   excerpt: string;
   content?: string;
   imageUrl?: string | null;
+  extraImages?: string[];
+  videos?: string[];
 };
 
 export async function getArticles(): Promise<{ items: Article[]; dbConnected: boolean }> {
@@ -18,7 +20,7 @@ export async function getArticles(): Promise<{ items: Article[]; dbConnected: bo
   try {
     await ensureSchema();
     const res = await pool.query(
-      `SELECT slug, title, category, excerpt, content, image_url, published_at
+      `SELECT slug, title, category, excerpt, content, image_url, extra_images, videos, published_at
        FROM site_articles ORDER BY published_at DESC, id DESC`
     );
     const items: Article[] = res.rows.map((r) => ({
@@ -28,6 +30,8 @@ export async function getArticles(): Promise<{ items: Article[]; dbConnected: bo
       excerpt: r.excerpt,
       content: r.content,
       imageUrl: r.image_url,
+      extraImages: r.extra_images || [],
+      videos: r.videos || [],
       date: new Date(r.published_at).toISOString().slice(0, 10),
     }));
     return { items, dbConnected: true };
@@ -50,16 +54,28 @@ export async function createArticle(data: {
   content: string;
   date: string;
   imageUrl?: string | null;
+  extraImages?: string[];
+  videos?: string[];
 }) {
   const pool = getPool();
   if (!pool) throw new Error("DATABASE_URL non configurato");
   await ensureSchema();
   await pool.query(
-    `INSERT INTO site_articles (slug, title, category, excerpt, content, image_url, published_at)
-     VALUES ($1,$2,$3,$4,$5,$6,$7)
+    `INSERT INTO site_articles (slug, title, category, excerpt, content, image_url, extra_images, videos, published_at)
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)
      ON CONFLICT (slug) DO UPDATE SET
-       title = $2, category = $3, excerpt = $4, content = $5, image_url = $6, published_at = $7`,
-    [data.slug, data.title, data.category, data.excerpt, data.content, data.imageUrl ?? null, data.date]
+       title = $2, category = $3, excerpt = $4, content = $5, image_url = $6, extra_images = $7, videos = $8, published_at = $9`,
+    [
+      data.slug,
+      data.title,
+      data.category,
+      data.excerpt,
+      data.content,
+      data.imageUrl ?? null,
+      data.extraImages ?? [],
+      data.videos ?? [],
+      data.date,
+    ]
   );
 }
 
