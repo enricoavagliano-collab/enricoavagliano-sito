@@ -1,22 +1,16 @@
 import Link from "next/link";
 import WowEffects from "@/components/WowEffects";
-import { getArticles } from "@/lib/articles-store";
-import { formatItDate } from "@/lib/articles";
-import { InstagramIcon, FacebookIcon, TikTokIcon, YouTubeIcon, MailIcon } from "@/components/Icons";
 
-export const dynamic = "force-dynamic";
+const logEntries = [
+  { tag: "mare", label: "MARE", date: "24 MAG 2025", title: "Pesca notturna in foce: strategie e attrezzature vincenti" },
+  { tag: "feeder", label: "FEEDER", date: "18 MAG 2025", title: "Pasturazione in primavera: trovate il ritmo giusto" },
+  { tag: "tecnica", label: "TECNICA", date: "12 MAG 2025", title: "Nodi essenziali: sicurezza e semplicità" },
+  { tag: "mare", label: "MARE", date: "05 MAG 2025", title: "Mare mosso, grandi catture: come adattarsi" },
+  { tag: "attrezzatura", label: "ATTREZZATURA", date: "28 APR 2025", title: "Manutenzione mulinelli: guida completa" },
+  { tag: "acquadolce", label: "ACQUA DOLCE", date: "21 APR 2025", title: "Feeder in fiume: lettura della corrente" },
+];
 
-const TAG_PALETTE = ["#7fb2e0", "#a9b975", "#d9a544", "#b7bcc2", "#7fc79a", "#c98fd1", "#d19f7f"];
-
-function categoryColor(category: string) {
-  let hash = 0;
-  for (let i = 0; i < category.length; i++) hash = category.charCodeAt(i) + ((hash << 5) - hash);
-  return TAG_PALETTE[Math.abs(hash) % TAG_PALETTE.length];
-}
-
-export default async function HomePage() {
-  const { items } = await getArticles();
-  const logEntries = items.slice(0, 6);
+export default function HomePage() {
   return (
     <main className="hp">
       <WowEffects />
@@ -34,15 +28,12 @@ export default async function HomePage() {
           <nav className="hp-nav">
             <Link href="/diari-di-pesca">LIBRI</Link>
             <Link href="/blog" className="active">BLOG</Link>
-            <Link href="/app-diari-di-pesca">APP</Link>
+            <Link href="/diari-di-pesca">APP</Link>
+            <span className="hp-social" aria-hidden>
+              <span>IG</span>
+              <span>YT</span>
+            </span>
           </nav>
-          <span className="hp-social">
-            <a href="https://www.instagram.com/enricoseabass/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><InstagramIcon /></a>
-            <a href="https://www.facebook.com/profile.php?id=61556746483320" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><FacebookIcon /></a>
-            <a href="https://www.tiktok.com/@enricopesca82" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><TikTokIcon /></a>
-            <a href="https://www.youtube.com/channel/UCVX4Ydxgn4goHXylNDvt07A" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><YouTubeIcon /></a>
-            <a href="mailto:info@enricoavagliano.com" aria-label="Email"><MailIcon /></a>
-          </span>
         </div>
       </header>
 
@@ -52,9 +43,6 @@ export default async function HomePage() {
         <div className="hp-hero-glow" aria-hidden="true" />
         <div className="wrap hp-hero-grid">
           <div data-reveal>
-            <div className="hp-hero-badge">
-              📖 In arrivo: "Il senso dell'acqua" — il nuovo libro sulla pesca in mare e in foce
-            </div>
             <h1 className="hp-display">
               <span className="line-gold">Registra</span>
               <span className="line-gold">ogni uscita.</span>
@@ -63,17 +51,11 @@ export default async function HomePage() {
             </h1>
             <p>
               Diari tecnici, strumenti e conoscenze per pescatori che
-              vogliono lasciare il segno — e presto anche un racconto più
-              intimo di cosa significa pescare tra mare e foce.
+              vogliono lasciare il segno.
             </p>
-            <div className="hp-hero-ctas">
-              <Link href="/diari-di-pesca" className="hp-btn-gold">
-                SCOPRI I DIARI
-              </Link>
-              <Link href="/il-senso-dellacqua" className="hp-link-gold">
-                IL SENSO DELL'ACQUA →
-              </Link>
-            </div>
+            <Link href="/diari-di-pesca" className="hp-btn-gold">
+              SCOPRI I DIARI
+            </Link>
           </div>
           <div className="hp-hero-photo-parallax">
             <div className="photo-slot" style={{ border: "none", background: "none", padding: 0 }}>
@@ -107,35 +89,20 @@ export default async function HomePage() {
             </Link>
           </div>
           <div className="hp-books">
-            <a
-              href="https://www.amazon.it/dp/B0GRG9KWD1"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="photo-slot"
-              data-reveal
-              style={{ border: "none", background: "none", padding: 0, display: "block" }}
-            >
+            <div className="photo-slot" data-reveal style={{ border: "none", background: "none", padding: 0 }}>
               <img
                 src="/images/cover-mare-foce.jpg"
                 alt="Diario di Pesca Professionale — Mare & Foce"
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
-            </a>
-            <a
-              href="https://www.amazon.it/dp/B0HH8LWVY7"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="photo-slot"
-              data-reveal
-              data-reveal-delay="1"
-              style={{ border: "none", background: "none", padding: 0, display: "block" }}
-            >
+            </div>
+            <div className="photo-slot" data-reveal data-reveal-delay="1" style={{ border: "none", background: "none", padding: 0 }}>
               <img
                 src="/images/cover-feeder.jpg"
                 alt="Diario di Pesca Professionale — Feeder"
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
-            </a>
+            </div>
           </div>
         </div>
       </section>
@@ -181,22 +148,8 @@ export default async function HomePage() {
             </div>
 
             <div className="hp-store-badges">
-              <details className="hp-pwa-install">
-                <summary>📱 Come installarla su Android</summary>
-                <ol>
-                  <li>Apri il link dell'app in Chrome</li>
-                  <li>Tocca i tre puntini in alto a destra</li>
-                  <li>Scegli "Aggiungi a schermata Home"</li>
-                </ol>
-              </details>
-              <details className="hp-pwa-install">
-                <summary>📱 Come installarla su iPhone</summary>
-                <ol>
-                  <li>Apri il link dell'app in Safari</li>
-                  <li>Tocca l'icona di condivisione (il quadrato con la freccia)</li>
-                  <li>Scegli "Aggiungi a Home"</li>
-                </ol>
-              </details>
+              <div className="hp-store-badge">▶ Disponibile su Google Play</div>
+              <div className="hp-store-badge"> Scarica su App Store</div>
               <div className="hp-badge-circle">100%
                 <br />
                 GRATUITA
@@ -224,13 +177,11 @@ export default async function HomePage() {
           </div>
 
           <div className="hp-log" data-reveal data-reveal-delay="1">
-            {logEntries.map((a) => (
-              <Link href={`/blog/${a.slug}`} key={a.slug} className="hp-log-row">
-                <span className="hp-tag" style={{ color: categoryColor(a.category), borderColor: categoryColor(a.category) }}>
-                  {a.category.toUpperCase()}
-                </span>
-                <span className="hp-log-date">{formatItDate(a.date).toUpperCase()}</span>
-                <span className="hp-log-title">{a.title}</span>
+            {logEntries.map((e, i) => (
+              <Link href="/blog" key={i} className="hp-log-row">
+                <span className={`hp-tag ${e.tag}`}>{e.label}</span>
+                <span className="hp-log-date">{e.date}</span>
+                <span className="hp-log-title">{e.title}</span>
                 <span className="hp-log-go">→</span>
               </Link>
             ))}
@@ -260,10 +211,7 @@ export default async function HomePage() {
                 ISCRIVITI
               </button>
             </form>
-            <div className="hp-news-fine">
-              Iscrivendoti accetti la nostra <Link href="/privacy">Privacy Policy</Link>. Puoi
-              annullare l'iscrizione in qualsiasi momento.
-            </div>
+            <div className="hp-news-fine">Nessuno spam. Promesso.</div>
           </div>
         </div>
       </section>
@@ -304,32 +252,36 @@ export default async function HomePage() {
             </div>
             <div>
               <h4>LIBRI</h4>
-              <a href="https://www.amazon.it/dp/B0GRG9KWD1" target="_blank" rel="noopener noreferrer">Diario Mare &amp; Foce</a>
-              <a href="https://www.amazon.it/dp/B0HH8LWVY7" target="_blank" rel="noopener noreferrer">Diario Feeder</a>
+              <Link href="/diari-di-pesca">Diario Mare &amp; Foce</Link>
+              <Link href="/diari-di-pesca">Diario Feeder</Link>
               <Link href="/diari-di-pesca">Tutti i diari</Link>
-              <Link href="/il-senso-dellacqua">Il senso dell'acqua</Link>
+              <Link href="/diari-di-pesca">Dove acquistare</Link>
             </div>
             <div>
               <h4>APP</h4>
-              <Link href="/app-diari-di-pesca">Come funziona</Link>
-              <Link href="/app-diari-di-pesca">Inclusa nel libro</Link>
+              <Link href="/diari-di-pesca">Funzionalità</Link>
+              <Link href="/diari-di-pesca">Come funziona</Link>
+              <Link href="/diari-di-pesca">FAQ</Link>
+              <Link href="/diari-di-pesca">Scarica l'app</Link>
             </div>
             <div>
               <h4>BLOG</h4>
-              <Link href="/blog">Tutti gli articoli</Link>
-              <Link href="/blog?cat=Feeder">Feeder</Link>
-              <Link href="/blog?cat=Foce">Foce</Link>
-              <Link href="/blog?cat=Mare">Mare</Link>
+              <Link href="/blog">Articoli</Link>
+              <Link href="/blog?cat=Tecniche">Tecniche</Link>
+              <Link href="/blog?cat=Attrezzatura">Attrezzatura</Link>
+              <Link href="/blog">Ambienti</Link>
             </div>
             <div>
               <h4>INFO</h4>
               <Link href="/chi-sono">Chi sono</Link>
               <Link href="/contatti">Contatti</Link>
-              <Link href="/privacy">Privacy Policy</Link>
+              <Link href="/contatti">Newsletter</Link>
+              <Link href="/contatti">Privacy Policy</Link>
             </div>
           </div>
           <div className="hp-footer-bottom">
             <span>© {new Date().getFullYear()} Enrico Avagliano — Tutti i diritti riservati</span>
+            <span>P.IVA da inserire</span>
           </div>
         </div>
       </footer>

@@ -37,8 +37,6 @@ export async function ensureSchema() {
     );
   `);
   await p.query(`ALTER TABLE site_articles ADD COLUMN IF NOT EXISTS image_url TEXT;`);
-  await p.query(`ALTER TABLE site_articles ADD COLUMN IF NOT EXISTS extra_images TEXT[] DEFAULT '{}';`);
-  await p.query(`ALTER TABLE site_articles ADD COLUMN IF NOT EXISTS videos TEXT[] DEFAULT '{}';`);
   schemaReady = true;
 }
 

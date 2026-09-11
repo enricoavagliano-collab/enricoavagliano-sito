@@ -47,6 +47,13 @@ export default async function BlogIndex({
       <div className="logbook">
         {list.map((a) => (
           <Link href={`/blog/${a.slug}`} key={a.slug} className="log-entry">
+            {a.imageUrl && (
+              <img
+                src={a.imageUrl}
+                alt=""
+                style={{ width: 48, height: 48, objectFit: "cover", borderRadius: 4, marginRight: 12 }}
+              />
+            )}
             <span className="date">{formatItDate(a.date)}</span>
             <span className="title">{a.title}</span>
             <span className="cat">{a.category}</span>
