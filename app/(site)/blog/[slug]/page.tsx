@@ -2,6 +2,7 @@ import { getArticleBySlug } from "@/lib/articles-store";
 import { formatItDate } from "@/lib/articles";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import ShareButtons from "@/components/ShareButtons";
 
 export const dynamic = "force-dynamic";
 
@@ -125,6 +126,7 @@ export default async function ArticlePage({
           {renderContent(article.content, article.extraImages || [], article.videos || [])}
         </div>
       )}
+      <ShareButtons title={article.title} />
     </main>
   );
 }
