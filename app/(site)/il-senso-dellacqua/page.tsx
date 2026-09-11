@@ -8,13 +8,15 @@ export default function IlSensoDellAcqua() {
       </div>
       <h1 style={{ fontSize: "2.4rem", marginTop: 10 }}>Il senso dell'acqua</h1>
       <p style={{ fontSize: "1.1rem", lineHeight: 1.7, marginTop: 24 }}>
-        Il nuovo libro dedicato alla pesca in foce: non solo tecnica, ma un
-        racconto più intimo di cosa significa stare tra acqua dolce e acqua
-        salata, leggere una corrente, riconoscere il momento giusto.
+        Il nuovo libro dedicato alla pesca in mare e in foce: non solo
+        tecnica, ma un racconto più intimo di cosa significa stare tra acqua
+        dolce e acqua salata, leggere una corrente, riconoscere il momento
+        giusto.
       </p>
       <p style={{ fontSize: "1.05rem", lineHeight: 1.7, marginTop: 16, color: "var(--muted)" }}>
-        98 pagine, 12 capitoli. In uscita a breve — resta aggiornato tramite
-        la newsletter o i canali social per essere tra i primi a saperlo.
+        98 pagine, 12 capitoli, tra mare e foce. In uscita a breve — resta
+        aggiornato tramite la newsletter o i canali social per essere tra i
+        primi a saperlo.
       </p>
       <a
         href="/blog"

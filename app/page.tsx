@@ -34,7 +34,7 @@ export default async function HomePage() {
           <nav className="hp-nav">
             <Link href="/diari-di-pesca">LIBRI</Link>
             <Link href="/blog" className="active">BLOG</Link>
-            <Link href="/diari-di-pesca">APP</Link>
+            <Link href="/app-diari-di-pesca">APP</Link>
           </nav>
           <span className="hp-social">
             <a href="https://www.instagram.com/enricoseabass/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><InstagramIcon /></a>
@@ -53,7 +53,7 @@ export default async function HomePage() {
         <div className="wrap hp-hero-grid">
           <div data-reveal>
             <div className="hp-hero-badge">
-              📖 In arrivo: "Il senso dell'acqua" — il nuovo libro sulla pesca in foce
+              📖 In arrivo: "Il senso dell'acqua" — il nuovo libro sulla pesca in mare e in foce
             </div>
             <h1 className="hp-display">
               <span className="line-gold">Registra</span>
@@ -64,7 +64,7 @@ export default async function HomePage() {
             <p>
               Diari tecnici, strumenti e conoscenze per pescatori che
               vogliono lasciare il segno — e presto anche un racconto più
-              intimo di cosa significa pescare in foce.
+              intimo di cosa significa pescare tra mare e foce.
             </p>
             <div className="hp-hero-ctas">
               <Link href="/diari-di-pesca" className="hp-btn-gold">
@@ -311,8 +311,8 @@ export default async function HomePage() {
             </div>
             <div>
               <h4>APP</h4>
-              <Link href="/diari-di-pesca">Come funziona</Link>
-              <Link href="/diari-di-pesca">Inclusa nel libro</Link>
+              <Link href="/app-diari-di-pesca">Come funziona</Link>
+              <Link href="/app-diari-di-pesca">Inclusa nel libro</Link>
             </div>
             <div>
               <h4>BLOG</h4>
@@ -330,7 +330,6 @@ export default async function HomePage() {
           </div>
           <div className="hp-footer-bottom">
             <span>© {new Date().getFullYear()} Enrico Avagliano — Tutti i diritti riservati</span>
-            <span>P.IVA da inserire</span>
           </div>
         </div>
       </footer>

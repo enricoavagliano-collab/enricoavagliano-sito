@@ -73,6 +73,13 @@ export default function DiariDiPesca() {
           code stampato all'interno. Acquistando uno dei diari, sblocchi
           subito l'app companion completa, gratis per sempre.
         </p>
+        <a
+          href="/app-diari-di-pesca"
+          className="btn btn-secondary"
+          style={{ display: "inline-block", marginTop: 16 }}
+        >
+          Scopri di più sull'app
+        </a>
       </div>
     </main>
   );
