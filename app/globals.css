@@ -185,15 +185,55 @@ nav.main-nav a:hover {
   margin-right: 4px;
 }
 .share-btn {
-  display: inline-block;
-  padding: 7px 16px;
-  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
   border: 1px solid var(--border);
-  font-size: 0.82rem;
   color: var(--deep);
 }
 .share-btn:hover {
   background: var(--paper-raised);
+}
+
+.cookie-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  background: var(--navy-950, #0a1520);
+  color: var(--off-white, #f4f1e8);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(217, 165, 68, 0.25);
+  font-size: 0.85rem;
+}
+.cookie-banner p {
+  margin: 0;
+  max-width: 640px;
+  line-height: 1.5;
+}
+.cookie-banner a {
+  color: var(--gold-soft, #e0c07a);
+  text-decoration: underline;
+}
+.cookie-banner-btn {
+  background: var(--gold, #d9a544);
+  color: #0a1520;
+  border: none;
+  padding: 9px 22px;
+  border-radius: 3px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  flex-shrink: 0;
 }
 
 /* section heading */
@@ -787,8 +827,8 @@ footer.site-footer .foot-grid {
   align-items: center;
 }
 .hp-collab-logos .photo-slot {
-  width: 180px;
-  height: 60px;
+  width: 280px;
+  height: 90px;
   aspect-ratio: auto;
   font-size: 0.7rem;
 }

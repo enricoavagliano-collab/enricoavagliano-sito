@@ -2,6 +2,7 @@ import Link from "next/link";
 import WowEffects from "@/components/WowEffects";
 import { getArticles } from "@/lib/articles-store";
 import { formatItDate } from "@/lib/articles";
+import { InstagramIcon, FacebookIcon, TikTokIcon, YouTubeIcon, MailIcon } from "@/components/Icons";
 
 export const dynamic = "force-dynamic";
 
@@ -36,11 +37,11 @@ export default async function HomePage() {
             <Link href="/diari-di-pesca">APP</Link>
           </nav>
           <span className="hp-social">
-            <a href="https://www.instagram.com/enricoseabass/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">IG</a>
-            <a href="https://www.facebook.com/profile.php?id=61556746483320" target="_blank" rel="noopener noreferrer" aria-label="Facebook">FB</a>
-            <a href="https://www.tiktok.com/@enricopesca82" target="_blank" rel="noopener noreferrer" aria-label="TikTok">TT</a>
-            <a href="https://www.youtube.com/channel/UCVX4Ydxgn4goHXylNDvt07A" target="_blank" rel="noopener noreferrer" aria-label="YouTube">YT</a>
-            <a href="mailto:info@enricoavagliano.com" aria-label="Email">✉</a>
+            <a href="https://www.instagram.com/enricoseabass/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><InstagramIcon /></a>
+            <a href="https://www.facebook.com/profile.php?id=61556746483320" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><FacebookIcon /></a>
+            <a href="https://www.tiktok.com/@enricopesca82" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><TikTokIcon /></a>
+            <a href="https://www.youtube.com/channel/UCVX4Ydxgn4goHXylNDvt07A" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><YouTubeIcon /></a>
+            <a href="mailto:info@enricoavagliano.com" aria-label="Email"><MailIcon /></a>
           </span>
         </div>
       </header>
@@ -70,7 +71,7 @@ export default async function HomePage() {
                 SCOPRI I DIARI
               </Link>
               <Link href="/il-senso-dellacqua" className="hp-link-gold">
-                Il senso dell'acqua →
+                IL SENSO DELL'ACQUA →
               </Link>
             </div>
           </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { WhatsAppIcon, FacebookIcon, XIcon, MailIcon } from "./Icons";
 
 export default function ShareButtons({ title }: { title: string }) {
   const [url, setUrl] = useState("");
@@ -15,10 +16,10 @@ export default function ShareButtons({ title }: { title: string }) {
   const encodedTitle = encodeURIComponent(title);
 
   const links = [
-    { label: "WhatsApp", href: `https://wa.me/?text=${encodedTitle}%20${encodedUrl}` },
-    { label: "Facebook", href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}` },
-    { label: "X", href: `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}` },
-    { label: "Email", href: `mailto:?subject=${encodedTitle}&body=${encodedUrl}` },
+    { label: "WhatsApp", icon: <WhatsAppIcon />, href: `https://wa.me/?text=${encodedTitle}%20${encodedUrl}` },
+    { label: "Facebook", icon: <FacebookIcon />, href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}` },
+    { label: "X", icon: <XIcon />, href: `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}` },
+    { label: "Email", icon: <MailIcon />, href: `mailto:?subject=${encodedTitle}&body=${encodedUrl}` },
   ];
 
   return (
@@ -31,8 +32,10 @@ export default function ShareButtons({ title }: { title: string }) {
           target="_blank"
           rel="noopener noreferrer"
           className="share-btn"
+          aria-label={l.label}
+          title={l.label}
         >
-          {l.label}
+          {l.icon}
         </a>
       ))}
     </div>

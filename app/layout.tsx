@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import CookieBanner from "@/components/CookieBanner";
 
 export const metadata: Metadata = {
   title: "Enrico Avagliano — La pesca a portata di click",
@@ -26,7 +27,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="it">
-      <body>{children}</body>
+      <body>
+        {children}
+        <CookieBanner />
+      </body>
     </html>
   );
 }
