@@ -53,8 +53,8 @@ export async function createArticle(data: {
   excerpt: string;
   content: string;
   date: string;
-  imageUrl?: string | null;
-  extraImages?: string[];
+  imageUrl?: string | null; // undefined = non toccare la copertina esistente
+  extraImages?: string[]; // undefined = non toccare le foto extra esistenti
   videos?: string[];
 }) {
   const pool = getPool();
@@ -64,15 +64,18 @@ export async function createArticle(data: {
     `INSERT INTO site_articles (slug, title, category, excerpt, content, image_url, extra_images, videos, published_at)
      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)
      ON CONFLICT (slug) DO UPDATE SET
-       title = $2, category = $3, excerpt = $4, content = $5, image_url = $6, extra_images = $7, videos = $8, published_at = $9`,
+       title = $2, category = $3, excerpt = $4, content = $5,
+       image_url = COALESCE($6, site_articles.image_url),
+       extra_images = COALESCE($7, site_articles.extra_images),
+       videos = $8, published_at = $9`,
     [
       data.slug,
       data.title,
       data.category,
       data.excerpt,
       data.content,
-      data.imageUrl ?? null,
-      data.extraImages ?? [],
+      data.imageUrl === undefined ? null : data.imageUrl,
+      data.extraImages === undefined ? null : data.extraImages,
       data.videos ?? [],
       data.date,
     ]

@@ -53,7 +53,7 @@ export async function createArticleAction(formData: FormData) {
 
   const slug = slugify(customSlug || title);
 
-  let imageUrl: string | null = null;
+  let imageUrl: string | undefined = undefined;
   const imageFile = formData.get("image");
   if (imageFile instanceof File && imageFile.size > 0) {
     if (imageFile.size > 1.5 * 1024 * 1024) {
@@ -63,12 +63,8 @@ export async function createArticleAction(formData: FormData) {
     const mime = imageFile.type || "image/jpeg";
     imageUrl = `data:${mime};base64,${buffer.toString("base64")}`;
   }
-  const existingImageUrl = String(formData.get("existingImageUrl") || "").trim();
-  if (!imageUrl && existingImageUrl) {
-    imageUrl = existingImageUrl;
-  }
 
-  let extraImages: string[] = [];
+  let extraImages: string[] | undefined = undefined;
   const extraFiles = formData.getAll("extraImages") as unknown as File[];
   const newExtraImages: string[] = [];
   for (const f of extraFiles) {
@@ -83,15 +79,6 @@ export async function createArticleAction(formData: FormData) {
   }
   if (newExtraImages.length > 0) {
     extraImages = newExtraImages;
-  } else {
-    const existingExtraImagesRaw = String(formData.get("existingExtraImages") || "");
-    if (existingExtraImagesRaw) {
-      try {
-        extraImages = JSON.parse(existingExtraImagesRaw);
-      } catch {
-        extraImages = [];
-      }
-    }
   }
 
   const videosRaw = String(formData.get("videos") || "");

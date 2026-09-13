@@ -161,7 +161,6 @@ export default async function AdminPage({
               </div>
             )}
             <input type="file" name="image" accept="image/*" />
-            <input type="hidden" name="existingImageUrl" value={editing?.imageUrl ?? ""} />
           </label>
           <label>
             Foto extra da inserire dentro al testo (facoltative, puoi selezionarne più di una insieme)
@@ -180,15 +179,11 @@ export default async function AdminPage({
               </div>
             )}
             <input type="file" name="extraImages" accept="image/*" multiple />
-            <input
-              type="hidden"
-              name="existingExtraImages"
-              value={editing?.extraImages ? JSON.stringify(editing.extraImages) : ""}
-            />
             <div className="admin-list-meta" style={{ marginTop: 6 }}>
               Carica le foto nell'ordine in cui vuoi usarle, poi nel testo qui sotto scrivi{" "}
               <code>[[img1]]</code>, <code>[[img2]]</code> ecc. nel punto esatto dove vuoi
-              che appaiano. Se ricarichi foto nuove qui, sostituiscono tutte quelle vecchie.
+              che appaiano. Se ricarichi foto nuove qui, sostituiscono tutte quelle vecchie —
+              se non carichi nulla, quelle già presenti restano invariate.
             </div>
           </label>
           <label>
