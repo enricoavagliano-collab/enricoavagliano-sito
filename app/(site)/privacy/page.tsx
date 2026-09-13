@@ -29,13 +29,29 @@ export default function Privacy() {
       <h2 style={{ fontSize: "1.25rem", marginTop: 32 }}>Finalità del trattamento</h2>
       <p style={{ fontSize: "1rem", lineHeight: 1.75, marginTop: 12 }}>
         I dati forniti vengono utilizzati esclusivamente per rispondere alle
-        richieste inviate tramite il modulo di contatto e, se l'utente si
-        iscrive, per inviare la newsletter con aggiornamenti su articoli,
-        libri e novità del sito. Per l'invio della newsletter ci si avvale del
-        servizio Brevo (Sendinblue SAS), che agisce come responsabile del
-        trattamento limitatamente all'invio delle email. I dati non vengono
-        ceduti, venduti o comunicati a terzi per finalità commerciali o
-        pubblicitarie.
+        richieste inviate tramite il modulo di contatto e, se l'utente
+        acconsente esplicitamente, per inviare la newsletter con
+        aggiornamenti su articoli, libri e novità del sito. I dati non
+        vengono ceduti, venduti o comunicati a terzi per finalità commerciali
+        o pubblicitarie.
+      </p>
+
+      <h2 style={{ fontSize: "1.25rem", marginTop: 32 }}>Soggetti che trattano i dati per conto del Titolare</h2>
+      <p style={{ fontSize: "1rem", lineHeight: 1.75, marginTop: 12 }}>
+        Per il funzionamento del sito ci si avvale dei seguenti fornitori,
+        che agiscono come responsabili del trattamento nei limiti dei
+        rispettivi servizi:
+      </p>
+      <ul style={{ fontSize: "1rem", lineHeight: 1.9, marginTop: 8, paddingLeft: 20 }}>
+        <li><strong>Vercel Inc.</strong> (Stati Uniti) — hosting ed erogazione del sito</li>
+        <li><strong>Neon Inc.</strong> (Stati Uniti) — archiviazione dei dati in database</li>
+        <li><strong>Brevo</strong> (Sendinblue SAS, Francia) — invio della newsletter</li>
+      </ul>
+      <p style={{ fontSize: "1rem", lineHeight: 1.75, marginTop: 12 }}>
+        Vercel e Neon hanno sede negli Stati Uniti: il trasferimento dei dati
+        verso questi fornitori avviene sulla base delle Clausole Contrattuali
+        Standard approvate dalla Commissione Europea, a garanzia di un
+        livello di protezione adeguato.
       </p>
 
       <h2 style={{ fontSize: "1.25rem", marginTop: 32 }}>Cookie</h2>

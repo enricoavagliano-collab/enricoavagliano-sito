@@ -73,8 +73,9 @@ async function addToBrevo(email: string) {
 
 export async function subscribeAction(formData: FormData) {
   const email = String(formData.get("email") || "").trim().toLowerCase();
+  const consent = formData.get("consent");
 
-  if (!email || !email.includes("@")) {
+  if (!email || !email.includes("@") || !consent) {
     redirect("/?newsletter=errore");
   }
 

@@ -787,6 +787,25 @@ footer.site-footer .foot-grid {
   margin-top: 14px;
   max-width: 42ch;
 }
+.hp-news-form-wrap {
+  max-width: 440px;
+}
+.hp-news-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 12px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  cursor: pointer;
+}
+.hp-news-consent input {
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+.hp-news-consent a {
+  color: var(--gold-soft);
+}
 .hp-news-form {
   display: flex;
   gap: 12px;

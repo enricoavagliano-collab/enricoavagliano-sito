@@ -264,21 +264,29 @@ export default async function HomePage({
                 Iscrizione avvenuta! Controlla la tua casella email.
               </p>
             ) : (
-              <form className="hp-news-form" action={subscribeAction}>
-                <input type="email" name="email" placeholder="La tua email" required />
-                <button type="submit" className="hp-btn-solid">
-                  ISCRIVITI
-                </button>
+              <form className="hp-news-form-wrap" action={subscribeAction}>
+                <div className="hp-news-form">
+                  <input type="email" name="email" placeholder="La tua email" required />
+                  <button type="submit" className="hp-btn-solid">
+                    ISCRIVITI
+                  </button>
+                </div>
+                <label className="hp-news-consent">
+                  <input type="checkbox" name="consent" required />
+                  <span>
+                    Accetto la <Link href="/privacy">Privacy Policy</Link> e acconsento a
+                    ricevere la newsletter via email.
+                  </span>
+                </label>
               </form>
             )}
             {searchParams.newsletter === "errore" && (
               <p style={{ color: "#e08a7a", marginTop: 10, fontSize: "0.85rem" }}>
-                Email non valida, riprova.
+                Email non valida o consenso mancante, riprova.
               </p>
             )}
             <div className="hp-news-fine">
-              Iscrivendoti accetti la nostra <Link href="/privacy">Privacy Policy</Link>. Puoi
-              annullare l'iscrizione in qualsiasi momento.
+              Puoi annullare l'iscrizione in qualsiasi momento.
             </div>
           </div>
         </div>
