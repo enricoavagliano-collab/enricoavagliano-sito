@@ -56,7 +56,7 @@ export async function createArticleAction(formData: FormData) {
   let imageUrl: string | null = null;
   const imageFile = formData.get("image");
   if (imageFile instanceof File && imageFile.size > 0) {
-    if (imageFile.size > 4 * 1024 * 1024) {
+    if (imageFile.size > 1.5 * 1024 * 1024) {
       redirect("/admin?error=immagine-troppo-grande");
     }
     const buffer = Buffer.from(await imageFile.arrayBuffer());
@@ -73,7 +73,7 @@ export async function createArticleAction(formData: FormData) {
   const newExtraImages: string[] = [];
   for (const f of extraFiles) {
     if (f instanceof File && f.size > 0) {
-      if (f.size > 4 * 1024 * 1024) {
+      if (f.size > 1.5 * 1024 * 1024) {
         redirect("/admin?error=immagine-troppo-grande");
       }
       const buffer = Buffer.from(await f.arrayBuffer());

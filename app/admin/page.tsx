@@ -93,6 +93,15 @@ export default async function AdminPage({
         </div>
       )}
       {searchParams.ok && <div className="admin-ok">Salvato con successo.</div>}
+      {searchParams.error === "immagine-troppo-grande" && (
+        <div className="admin-warning">
+          Una delle immagini caricate supera 1,5 MB. Riducila di dimensione (anche solo
+          con uno screenshot ridimensionato) e riprova.
+        </div>
+      )}
+      {searchParams.error === "titolo-mancante" && (
+        <div className="admin-warning">Il titolo è obbligatorio.</div>
+      )}
 
       <section className="admin-card">
         <h2>{editing ? `Modifica: ${editing.title}` : "Nuovo articolo"}</h2>
@@ -138,7 +147,7 @@ export default async function AdminPage({
             </label>
           </div>
           <label>
-            Immagine di copertina (facoltativa, max 4MB)
+            Immagine di copertina (facoltativa, max 1,5MB)
             {editing?.imageUrl && (
               <div style={{ margin: "8px 0" }}>
                 <img
