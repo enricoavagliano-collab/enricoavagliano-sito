@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { ADMIN_COOKIE, checkPassword, sessionCookieValue } from "@/lib/auth";
-import { createArticle, deleteArticle } from "@/lib/articles-store";
+import { createArticle, deleteArticle, getArticleBySlug } from "@/lib/articles-store";
 
 export async function loginAction(formData: FormData) {
   const password = String(formData.get("password") || "");
@@ -78,7 +78,9 @@ export async function createArticleAction(formData: FormData) {
     }
   }
   if (newExtraImages.length > 0) {
-    extraImages = newExtraImages;
+    const existing = await getArticleBySlug(slug);
+    const oldExtraImages = existing?.extraImages || [];
+    extraImages = [...oldExtraImages, ...newExtraImages];
   }
 
   const videosRaw = String(formData.get("videos") || "");

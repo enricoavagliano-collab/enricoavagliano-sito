@@ -182,8 +182,9 @@ export default async function AdminPage({
             <div className="admin-list-meta" style={{ marginTop: 6 }}>
               Carica le foto nell'ordine in cui vuoi usarle, poi nel testo qui sotto scrivi{" "}
               <code>[[img1]]</code>, <code>[[img2]]</code> ecc. nel punto esatto dove vuoi
-              che appaiano. Se ricarichi foto nuove qui, sostituiscono tutte quelle vecchie —
-              se non carichi nulla, quelle già presenti restano invariate.
+              che appaiano. Le foto che carichi qui si aggiungono a quelle già presenti
+              (non le cancellano): se ne hai già 4 e ne carichi altre 2, le nuove diventano{" "}
+              <code>[[img5]]</code> e <code>[[img6]]</code>.
             </div>
           </label>
           <label>
