@@ -54,8 +54,9 @@ function renderContent(content: string, extraImages: string[] = [], videos: stri
           alt=""
           style={{
             width: "100%",
-            maxHeight: 420,
-            objectFit: "cover",
+            height: "auto",
+            maxHeight: 700,
+            objectFit: "contain",
             borderRadius: 6,
             margin: "20px 0",
           }}
