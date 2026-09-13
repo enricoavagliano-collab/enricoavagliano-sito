@@ -31,8 +31,11 @@ export default function Privacy() {
         I dati forniti vengono utilizzati esclusivamente per rispondere alle
         richieste inviate tramite il modulo di contatto e, se l'utente si
         iscrive, per inviare la newsletter con aggiornamenti su articoli,
-        libri e novità del sito. I dati non vengono ceduti, venduti o
-        comunicati a terzi per finalità commerciali.
+        libri e novità del sito. Per l'invio della newsletter ci si avvale del
+        servizio Brevo (Sendinblue SAS), che agisce come responsabile del
+        trattamento limitatamente all'invio delle email. I dati non vengono
+        ceduti, venduti o comunicati a terzi per finalità commerciali o
+        pubblicitarie.
       </p>
 
       <h2 style={{ fontSize: "1.25rem", marginTop: 32 }}>Cookie</h2>

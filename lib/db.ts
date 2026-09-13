@@ -39,6 +39,13 @@ export async function ensureSchema() {
   await p.query(`ALTER TABLE site_articles ADD COLUMN IF NOT EXISTS image_url TEXT;`);
   await p.query(`ALTER TABLE site_articles ADD COLUMN IF NOT EXISTS extra_images TEXT[] DEFAULT '{}';`);
   await p.query(`ALTER TABLE site_articles ADD COLUMN IF NOT EXISTS videos TEXT[] DEFAULT '{}';`);
+  await p.query(`
+    CREATE TABLE IF NOT EXISTS newsletter_subscribers (
+      id SERIAL PRIMARY KEY,
+      email TEXT UNIQUE NOT NULL,
+      subscribed_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    );
+  `);
   schemaReady = true;
 }
 

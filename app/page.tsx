@@ -3,6 +3,7 @@ import WowEffects from "@/components/WowEffects";
 import { getArticles } from "@/lib/articles-store";
 import { formatItDate } from "@/lib/articles";
 import { InstagramIcon, FacebookIcon, TikTokIcon, YouTubeIcon, MailIcon } from "@/components/Icons";
+import { subscribeAction } from "@/app/newsletter-actions";
 
 export const dynamic = "force-dynamic";
 
@@ -14,7 +15,11 @@ function categoryColor(category: string) {
   return TAG_PALETTE[Math.abs(hash) % TAG_PALETTE.length];
 }
 
-export default async function HomePage() {
+export default async function HomePage({
+  searchParams,
+}: {
+  searchParams: { newsletter?: string };
+}) {
   const { items } = await getArticles();
   const logEntries = items.slice(0, 6);
   return (
@@ -254,12 +259,23 @@ export default async function HomePage() {
               Iscriviti alla newsletter per ricevere novità, articoli e
               consigli esclusivi.
             </p>
-            <form className="hp-news-form">
-              <input type="email" placeholder="La tua email" />
-              <button type="submit" className="hp-btn-solid">
-                ISCRIVITI
-              </button>
-            </form>
+            {searchParams.newsletter === "ok" ? (
+              <p style={{ color: "var(--gold-soft)", marginTop: 26 }}>
+                Iscrizione avvenuta! Controlla la tua casella email.
+              </p>
+            ) : (
+              <form className="hp-news-form" action={subscribeAction}>
+                <input type="email" name="email" placeholder="La tua email" required />
+                <button type="submit" className="hp-btn-solid">
+                  ISCRIVITI
+                </button>
+              </form>
+            )}
+            {searchParams.newsletter === "errore" && (
+              <p style={{ color: "#e08a7a", marginTop: 10, fontSize: "0.85rem" }}>
+                Email non valida, riprova.
+              </p>
+            )}
             <div className="hp-news-fine">
               Iscrivendoti accetti la nostra <Link href="/privacy">Privacy Policy</Link>. Puoi
               annullare l'iscrizione in qualsiasi momento.
