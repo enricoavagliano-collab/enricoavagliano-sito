@@ -889,6 +889,8 @@ footer.site-footer .foot-grid {
   .hp-news-form button { width: 100%; }
   .hp-hero-badge { max-width: 100%; }
   .hp-collab-logos { flex-wrap: wrap; justify-content: center; }
+  .hp-header-inner { flex-wrap: wrap; row-gap: 12px; }
+  .hp-social { margin-left: 0; width: 100%; justify-content: flex-end; }
 }
 
 /* ================= WOW EFFECTS ================= */
