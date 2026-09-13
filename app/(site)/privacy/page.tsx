@@ -1,4 +1,4 @@
-export const metadata = { title: "Privacy Policy — Enrico Avagliano" };
+export const metadata = { title: "Privacy Policy — Enrico Avagliano", description: "Informativa sulla privacy e sul trattamento dei dati personali di enricoavagliano.com." };
 
 export default function Privacy() {
   return (

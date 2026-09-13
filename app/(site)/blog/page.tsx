@@ -2,7 +2,7 @@ import Link from "next/link";
 import { getArticles } from "@/lib/articles-store";
 import { formatItDate } from "@/lib/articles";
 
-export const metadata = { title: "Articoli — Enrico Avagliano" };
+export const metadata = { title: "Articoli — Enrico Avagliano", description: "Tecniche, lenze, specie e diari di pesca in mare e in foce: tutti gli articoli tecnici di Enrico Avagliano." };
 export const dynamic = "force-dynamic";
 
 export default async function BlogIndex({

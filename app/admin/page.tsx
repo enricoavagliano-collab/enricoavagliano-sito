@@ -8,7 +8,10 @@ import {
 } from "./actions";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Area riservata — Enrico Avagliano" };
+export const metadata = {
+  title: "Area riservata — Enrico Avagliano",
+  robots: { index: false, follow: false },
+};
 
 export default async function AdminPage({
   searchParams,

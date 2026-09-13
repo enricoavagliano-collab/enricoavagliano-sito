@@ -1,4 +1,4 @@
-export const metadata = { title: "Chi sono — Enrico Avagliano" };
+export const metadata = { title: "Chi sono — Enrico Avagliano", description: "Enrico Avagliano, ambassador Maver e Stonfo, scrive di pesca dal 2011 su riviste specializzate e sul blog enricoavagliano.com." };
 
 export default function ChiSono() {
   return (

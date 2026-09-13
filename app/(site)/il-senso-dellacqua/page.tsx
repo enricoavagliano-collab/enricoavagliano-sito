@@ -1,4 +1,4 @@
-export const metadata = { title: "Il senso dell'acqua — Enrico Avagliano" };
+export const metadata = { title: "Il senso dell'acqua — Enrico Avagliano", description: "In arrivo il nuovo libro di Enrico Avagliano dedicato alla pesca in mare e in foce." };
 
 export default function IlSensoDellAcqua() {
   return (

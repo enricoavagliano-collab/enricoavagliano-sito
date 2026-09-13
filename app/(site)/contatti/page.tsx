@@ -1,4 +1,4 @@
-export const metadata = { title: "Contatti — Enrico Avagliano" };
+export const metadata = { title: "Contatti — Enrico Avagliano", description: "Contatta Enrico Avagliano per collaborazioni, richieste stampa o domande sui Diari di Pesca." };
 
 export default function Contatti() {
   return (

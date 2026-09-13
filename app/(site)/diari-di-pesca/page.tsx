@@ -1,4 +1,4 @@
-export const metadata = { title: "Diari di Pesca — Enrico Avagliano" };
+export const metadata = { title: "Diari di Pesca — Enrico Avagliano", description: "I Diari di Pesca Professionale di Enrico Avagliano: Mare & Foce e Feeder, con app companion inclusa per registrare ogni uscita." };
 
 const books = [
   {

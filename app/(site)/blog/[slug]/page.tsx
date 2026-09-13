@@ -92,6 +92,26 @@ function renderContent(content: string, extraImages: string[] = [], videos: stri
   });
 }
 
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const article = await getArticleBySlug(params.slug);
+  if (!article) return { title: "Articolo non trovato — Enrico Avagliano" };
+
+  return {
+    title: `${article.title} — Enrico Avagliano`,
+    description: article.excerpt,
+    openGraph: {
+      title: article.title,
+      description: article.excerpt,
+      type: "article",
+      images: article.imageUrl ? [article.imageUrl] : undefined,
+    },
+  };
+}
+
 export default async function ArticlePage({
   params,
 }: {

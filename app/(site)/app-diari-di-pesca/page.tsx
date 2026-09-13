@@ -1,4 +1,4 @@
-export const metadata = { title: "App Diari di Pesca — Enrico Avagliano" };
+export const metadata = { title: "App Diari di Pesca — Enrico Avagliano", description: "Diario digitale, maree e fasi lunari in tempo reale, e tutte le lenze di Enrico Avagliano: l'app companion inclusa gratuitamente con i Diari di Pesca cartacei." };
 
 const features = [
   {
