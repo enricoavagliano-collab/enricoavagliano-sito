@@ -19,8 +19,10 @@ export async function getArticles(): Promise<{ items: Article[]; dbConnected: bo
 
   try {
     await ensureSchema();
+    // Versione "leggera": niente content/extra_images/videos, che possono
+    // pesare parecchio (immagini in base64) e non servono nelle liste.
     const res = await pool.query(
-      `SELECT slug, title, category, excerpt, content, image_url, extra_images, videos, published_at
+      `SELECT slug, title, category, excerpt, image_url, published_at
        FROM site_articles ORDER BY published_at DESC, id DESC`
     );
     const items: Article[] = res.rows.map((r) => ({
@@ -28,10 +30,7 @@ export async function getArticles(): Promise<{ items: Article[]; dbConnected: bo
       title: r.title,
       category: r.category,
       excerpt: r.excerpt,
-      content: r.content,
       imageUrl: r.image_url,
-      extraImages: r.extra_images || [],
-      videos: r.videos || [],
       date: new Date(r.published_at).toISOString().slice(0, 10),
     }));
     return { items, dbConnected: true };
@@ -42,8 +41,33 @@ export async function getArticles(): Promise<{ items: Article[]; dbConnected: bo
 }
 
 export async function getArticleBySlug(slug: string): Promise<Article | null> {
-  const { items } = await getArticles();
-  return items.find((a) => a.slug === slug) ?? null;
+  const pool = getPool();
+  if (!pool) return placeholderArticles.find((a) => a.slug === slug) ?? null;
+
+  try {
+    await ensureSchema();
+    const res = await pool.query(
+      `SELECT slug, title, category, excerpt, content, image_url, extra_images, videos, published_at
+       FROM site_articles WHERE slug = $1 LIMIT 1`,
+      [slug]
+    );
+    if (res.rows.length === 0) return null;
+    const r = res.rows[0];
+    return {
+      slug: r.slug,
+      title: r.title,
+      category: r.category,
+      excerpt: r.excerpt,
+      content: r.content,
+      imageUrl: r.image_url,
+      extraImages: r.extra_images || [],
+      videos: r.videos || [],
+      date: new Date(r.published_at).toISOString().slice(0, 10),
+    };
+  } catch (err) {
+    console.error("Errore database nel recupero articolo:", err);
+    return null;
+  }
 }
 
 export async function createArticle(data: {

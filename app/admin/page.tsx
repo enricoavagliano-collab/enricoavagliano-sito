@@ -1,5 +1,5 @@
 import { isAuthenticated } from "@/lib/auth";
-import { getArticles } from "@/lib/articles-store";
+import { getArticles, getArticleBySlug } from "@/lib/articles-store";
 import {
   loginAction,
   logoutAction,
@@ -51,7 +51,7 @@ export default async function AdminPage({
   const { items, dbConnected } = await getArticles();
   const today = new Date().toISOString().slice(0, 10);
   const editing = searchParams.edit
-    ? items.find((a) => a.slug === searchParams.edit)
+    ? (await getArticleBySlug(searchParams.edit)) ?? undefined
     : undefined;
   const baseCategories = [
     "Regolamenti",
