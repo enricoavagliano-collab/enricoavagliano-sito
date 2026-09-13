@@ -15,7 +15,7 @@ const books = [
 
 export default function DiariDiPesca() {
   return (
-    <main className="wrap prose-width" style={{ padding: "70px 0 100px" }}>
+    <main className="wrap prose-width" style={{ paddingTop: 70, paddingBottom: 100 }}>
       <div className="eyebrow" style={{ color: "var(--water)" }}>
         Collana
       </div>

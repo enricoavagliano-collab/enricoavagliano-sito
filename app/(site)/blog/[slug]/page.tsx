@@ -100,7 +100,7 @@ export default async function ArticlePage({
   if (!article) return notFound();
 
   return (
-    <main className="wrap prose-width" style={{ padding: "56px 0 100px" }}>
+    <main className="wrap prose-width" style={{ paddingTop: 56, paddingBottom: 100 }}>
       <Link href="/blog" className="see-all" style={{ fontSize: "0.85rem" }}>
         ← Tutti gli articoli
       </Link>

@@ -884,13 +884,14 @@ footer.site-footer .foot-grid {
   .hp-features { grid-template-columns: repeat(2, 1fr); }
   .hp-footer-grid { grid-template-columns: repeat(2, 1fr); }
   .hp-log-row { grid-template-columns: 90px 1fr; row-gap: 4px; }
+  .hp-log-title { grid-column: 1 / -1; margin-top: 2px; }
   .hp-log-go { display: none; }
   .hp-news-form { flex-direction: column; max-width: 100%; }
   .hp-news-form button { width: 100%; }
   .hp-hero-badge { max-width: 100%; }
   .hp-collab-logos { flex-wrap: wrap; justify-content: center; }
-  .hp-header-inner { flex-wrap: wrap; row-gap: 12px; }
-  .hp-social { margin-left: 0; width: 100%; justify-content: flex-end; }
+  .hp-header-inner { flex-wrap: wrap; row-gap: 8px; }
+  .hp-social { margin-left: 0; width: 100%; justify-content: flex-start; }
 }
 
 /* ================= WOW EFFECTS ================= */
