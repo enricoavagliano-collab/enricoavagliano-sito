@@ -54,9 +54,14 @@ export async function createArticleAction(formData: FormData) {
 
   const slug = slugify(customSlug || title);
 
+  const isBlobUrl = (u: string) =>
+    /^https:\/\/[a-z0-9]+\.public\.blob\.vercel-storage\.com\//.test(u);
+
   let imageUrl: string | undefined = undefined;
+  const coverUrl = String(formData.get("coverUrl") || "");
+  if (isBlobUrl(coverUrl)) imageUrl = coverUrl;
   const imageFile = formData.get("image");
-  if (imageFile instanceof File && imageFile.size > 0) {
+  if (!imageUrl && imageFile instanceof File && imageFile.size > 0) {
     if (imageFile.size > 1.5 * 1024 * 1024) {
       redirect("/admin?error=immagine-troppo-grande");
     }
@@ -66,6 +71,9 @@ export async function createArticleAction(formData: FormData) {
   let extraImages: string[] | undefined = undefined;
   const extraFiles = formData.getAll("extraImages") as unknown as File[];
   const newExtraImages: string[] = [];
+  for (const u of formData.getAll("extraUrls")) {
+    if (typeof u === "string" && isBlobUrl(u)) newExtraImages.push(u);
+  }
   for (const f of extraFiles) {
     if (f instanceof File && f.size > 0) {
       if (f.size > 1.5 * 1024 * 1024) {
