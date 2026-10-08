@@ -1,3 +1,8 @@
+#!/bin/bash
+set -e
+echo "Import copertine: abbinamento migliorato per i nomi diversi..."
+mkdir -p app/api/admin/import-covers
+cat > "app/api/admin/import-covers/route.ts" << 'EAWEBEOF'
 import { NextResponse } from "next/server";
 import { put } from "@vercel/blob";
 import { isAuthenticated } from "@/lib/auth";
@@ -189,3 +194,5 @@ export async function GET(req: Request) {
     non_riusciti: risultati.filter((r) => r.esito !== "ok"),
   });
 }
+EAWEBEOF
+echo "Fatto."
