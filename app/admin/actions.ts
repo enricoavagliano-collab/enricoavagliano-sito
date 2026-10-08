@@ -3,6 +3,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { ADMIN_COOKIE, checkPassword, sessionCookieValue } from "@/lib/auth";
+import { uploadImage } from "@/lib/blob";
 import { createArticle, deleteArticle, getArticleBySlug } from "@/lib/articles-store";
 
 export async function loginAction(formData: FormData) {
@@ -59,9 +60,7 @@ export async function createArticleAction(formData: FormData) {
     if (imageFile.size > 1.5 * 1024 * 1024) {
       redirect("/admin?error=immagine-troppo-grande");
     }
-    const buffer = Buffer.from(await imageFile.arrayBuffer());
-    const mime = imageFile.type || "image/jpeg";
-    imageUrl = `data:${mime};base64,${buffer.toString("base64")}`;
+    imageUrl = await uploadImage(imageFile);
   }
 
   let extraImages: string[] | undefined = undefined;
@@ -72,9 +71,7 @@ export async function createArticleAction(formData: FormData) {
       if (f.size > 1.5 * 1024 * 1024) {
         redirect("/admin?error=immagine-troppo-grande");
       }
-      const buffer = Buffer.from(await f.arrayBuffer());
-      const mime = f.type || "image/jpeg";
-      newExtraImages.push(`data:${mime};base64,${buffer.toString("base64")}`);
+      newExtraImages.push(await uploadImage(f));
     }
   }
   if (newExtraImages.length > 0) {
@@ -101,4 +98,3 @@ export async function deleteArticleAction(formData: FormData) {
   }
   redirect("/admin?ok=1");
 }
-
