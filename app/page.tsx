@@ -58,7 +58,7 @@ export default async function HomePage({
         <div className="wrap hp-hero-grid">
           <div data-reveal>
             <div className="hp-hero-badge">
-              📖 In arrivo: "Il senso dell'acqua" — il nuovo libro sulla pesca in mare e in foce
+              📖 In arrivo: "Pesca a bolognese e all'inglese" — il nuovo libro sulla pesca in mare e in foce
             </div>
             <h1 className="hp-display">
               <span className="line-gold">Registra</span>
@@ -68,15 +68,15 @@ export default async function HomePage({
             </h1>
             <p>
               Diari tecnici, strumenti e conoscenze per pescatori che
-              vogliono lasciare il segno — e presto anche un racconto più
-              intimo di cosa significa pescare tra mare e foce.
+              vogliono lasciare il segno — e presto anche una guida pratica
+              alla pesca a bolognese e all'inglese in mare e in foce.
             </p>
             <div className="hp-hero-ctas">
               <Link href="/diari-di-pesca" className="hp-btn-gold">
                 SCOPRI I DIARI
               </Link>
-              <Link href="/il-senso-dellacqua" className="hp-link-gold">
-                IL SENSO DELL'ACQUA →
+              <Link href="/pesca-a-bolognese-e-allinglese" className="hp-link-gold">
+                IL NUOVO LIBRO →
               </Link>
             </div>
           </div>
@@ -331,7 +331,7 @@ export default async function HomePage({
               <a href="https://www.amazon.it/dp/B0GRG9KWD1" target="_blank" rel="noopener noreferrer">Diario Mare &amp; Foce</a>
               <a href="https://www.amazon.it/dp/B0HH8LWVY7" target="_blank" rel="noopener noreferrer">Diario Feeder</a>
               <Link href="/diari-di-pesca">Tutti i diari</Link>
-              <Link href="/il-senso-dellacqua">Il senso dell'acqua</Link>
+              <Link href="/pesca-a-bolognese-e-allinglese">Pesca a bolognese e all'inglese</Link>
             </div>
             <div>
               <h4>APP</h4>
@@ -360,4 +360,3 @@ export default async function HomePage({
     </main>
   );
 }
-

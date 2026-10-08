@@ -23,6 +23,11 @@ const nextConfig = {
   images: {
     remotePatterns: [{ protocol: "https", hostname: "**" }],
   },
+  async redirects() {
+    return [
+      { source: "/il-senso-dellacqua", destination: "/pesca-a-bolognese-e-allinglese", permanent: true },
+    ];
+  },
   experimental: {
     serverActions: {
       bodySizeLimit: "4mb",
@@ -31,4 +36,3 @@ const nextConfig = {
 };
 
 module.exports = withPWA(nextConfig);
-

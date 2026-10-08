@@ -27,7 +27,7 @@ const WELCOME_EMAIL_HTML = `
     <a href="https://www.amazon.it/dp/B0HH8LWVY7" style="background:#d9a544;color:#0a1520;padding:12px 20px;text-decoration:none;border-radius:4px;font-weight:bold;display:inline-block;">Diario Feeder</a>
   </p>
   <p style="font-size: 15px; line-height: 1.6;">
-    In arrivo anche <strong>"Il senso dell'acqua"</strong>, il nuovo libro dedicato
+    In arrivo anche <strong>"Pesca a bolognese e all'inglese"</strong>, il nuovo libro dedicato
     alla pesca in mare e in foce — resterai aggiornato/a anche su questo.
   </p>
   <p style="font-size: 13px; color: #6b7570; margin-top: 40px;">
@@ -96,4 +96,3 @@ export async function subscribeAction(formData: FormData) {
 
   redirect("/?newsletter=ok");
 }
-

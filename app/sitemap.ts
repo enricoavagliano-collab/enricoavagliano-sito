@@ -11,7 +11,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE_URL}/blog`, changeFrequency: "daily", priority: 0.9 },
     { url: `${BASE_URL}/diari-di-pesca`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE_URL}/app-diari-di-pesca`, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${BASE_URL}/il-senso-dellacqua`, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${BASE_URL}/pesca-a-bolognese-e-allinglese`, changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE_URL}/chi-sono`, changeFrequency: "monthly", priority: 0.5 },
     { url: `${BASE_URL}/contatti`, changeFrequency: "yearly", priority: 0.4 },
     { url: `${BASE_URL}/privacy`, changeFrequency: "yearly", priority: 0.2 },
@@ -26,4 +26,3 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [...staticPages, ...articlePages];
 }
-
