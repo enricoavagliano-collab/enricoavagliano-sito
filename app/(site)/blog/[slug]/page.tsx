@@ -40,16 +40,16 @@ function renderTextWithLinks(text: string, keyPrefix: string) {
 }
 
 function renderContent(content: string, extraImages: string[] = [], videos: string[] = []) {
-  const parts = content.split(/(\[\[img\d+\]\]|\[\[video\d+\]\])/g);
+  const parts = content.split(/(\[\[img\d+(?:\|[^\]\s]+)?\]\]|\[\[video\d+\]\])/g);
   return parts.map((part, i) => {
-    const mImg = part.match(/^\[\[img(\d+)\]\]$/);
+    const mImg = part.match(/^\[\[img(\d+)(?:\|([^\]\s]+))?\]\]$/);
     if (mImg) {
       const idx = parseInt(mImg[1], 10) - 1;
       const src = extraImages[idx];
       if (!src) return null;
-      return (
+      const href = mImg[2] && /^https?:\/\//.test(mImg[2]) ? mImg[2] : null;
+      const imgEl = (
         <img
-          key={i}
           src={src}
           alt=""
           style={{
@@ -58,9 +58,21 @@ function renderContent(content: string, extraImages: string[] = [], videos: stri
             maxHeight: 700,
             objectFit: "contain",
             borderRadius: 6,
-            margin: "20px 0",
+            margin: href ? 0 : "20px 0",
           }}
         />
+      );
+      if (!href) return <span key={i}>{imgEl}</span>;
+      return (
+        <a
+          key={i}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ display: "block", margin: "20px 0" }}
+        >
+          {imgEl}
+        </a>
       );
     }
     const mVideo = part.match(/^\[\[video(\d+)\]\]$/);
